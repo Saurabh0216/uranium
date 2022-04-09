@@ -9,12 +9,9 @@ const helper = require('../util/helper');
 const router = express.Router();
 
 router.get('/hello', function (req, res) {
-    logger.printmsg('Uranium')
+   // logger.printmsg('Uranium')
+logger.welcome()
 
-
-    logger.welcome()
-
- 
 
     //Module 2 functions
 

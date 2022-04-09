@@ -1,7 +1,7 @@
-function printmsg(message)
-{
-    console.log(message)
-}
+//function printmsg(message)
+//{
+ //   console.log(message)
+//}
 
 function welcome ()
 {
@@ -9,4 +9,4 @@ function welcome ()
 }
 
 module.exports.welcome=welcome;
-module.exports.printmsg=printmsg;
+//module.exports.printmsg=printmsg;
