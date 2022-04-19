@@ -1,43 +1,21 @@
 const express = require('express');
-
 const router = express.Router();
 
+const authorController = require("../controllers/authorController")
+const bookController = require("../controllers/bookController")
+const publisherController = require("../controllers/publisherController")
 
-
-
-let players=[]
-
-router.post('/players', function(req, res){
-
-   
-
-    let player= req.body
-
-    let playerName = players.name
-
-    for(let i=0;i<players.length;i++)
-
-    {
-
-        if(players[i].name == playerName)
-
-        {
-
-           return  req.send('players not exits')
-
-        }
-
-    }
-
-    players.push(player)
-
-    console.log('here is the player from requst',players)
-
-    res.send(players)
-
+router.get("/test-me", function (req, res) {
+    res.send("My first ever api!")
 })
 
+router.post("/createAuthor", authorController.createAuthor  )
+router.post("/createPublisher", publisherController.createPublisher)
+router.post("/createBook", bookController.createBook  )
+router.get("/getBooks", bookController.getBooks)
+router.put('/books', bookController.updateBooks)
 
+module.exports = router;
 
 
 
