@@ -49,6 +49,21 @@ const createBlogs = async function (req, res) {   //create the Blog
         if (!validatefield(data.category)) {
                 return res.status(400).send({ status: false, msg: "Invaild Category" })//title validation By Rejex
             }
+
+            if(data.isPublished==true)
+            {
+                data.publishedAt=new Date()
+            }
+
+            if(data.tags){
+                const t=data.tags.filter((e)=>e.length!=0)
+                data.tags=t
+            }
+            if(data.subcategory){
+                const t=data.subcategory.filter((e)=>e.length!=0)
+                data.subcategory=t
+            }
+
         //check the format of the Email id if wrong then give message
         let isValidauthorID = mongoose.Types.ObjectId.isValid(data.authorId);
         if (!isValidauthorID) {
@@ -206,14 +221,16 @@ const deleteParams = async (req, res) => {
 
         let decodedtoken = jwt.verify(token, "group11")
 
-
+        if(!req.query.authorId && !req.query.category && !req.query.tags && !req.query.subcategory){
+            return res.status(400).send({status:false,msg:"qurey param not given"})
+        }
         const obj = {}     //obj is condition for find
 
         if (req.query.authorId) {
             if (req.query.authorId != decodedtoken.authorId) {
                 return res.status(403).send({ status:false,msg: "unauthorized access" })
             }
-            obj.authorId = req.query.authorId
+            // obj.authorId = req.query.authorId
         }
         if (req.query.category) {
             obj.category = req.query.category
